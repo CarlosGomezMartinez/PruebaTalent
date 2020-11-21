@@ -5,19 +5,19 @@ async function run(){
     const page = await browser.newPage();
     await page.goto('https://www.arrivia.com/careers/job-openings/');
 
-    const links = await page.evaluate(() => {
-        const $elements = document.querySelectorAll('.row.job-search-result');
-        const links =[];
-        $elements.forEach((element) => {
-            links.push({
-                titulo: element.querySelector('.col-xs-12.col-sm-8 h3').textContent,
-                locacion: element.querySelector('.col-xs-12.col-sm-8 p').textContent,
-                url: element.querySelector('.btn.btn-lg.btn-primary.btn-job-apply').href
+    const array = await page.evaluate(() => {
+        const $empleos = document.querySelectorAll('.row.job-search-result');
+        const array =[];
+        $empleos.forEach((empleo) => {
+            array.push({
+                titulo: empleo.querySelector('.col-xs-12.col-sm-8 h3').textContent,
+                locacion: empleo.querySelector('.col-xs-12.col-sm-8 p').textContent,
+                url: empleo.querySelector('.btn.btn-lg.btn-primary.btn-job-apply').href
             }) 
         })
-        return {elements: links};
+        return {empleos: array};
     })
-    console.log(links);
+    console.log(array);
     await browser.close();
 }
 run();
